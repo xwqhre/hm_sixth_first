@@ -43,7 +43,7 @@ class TaskAdapter(
                 onTaskCheckChanged(adapterPosition, isChecked)
             }
 
-            itemView.setOnClickListener {
+            itemView.setOnLongClickListener {
                 onClick(model)
                 false
             }
