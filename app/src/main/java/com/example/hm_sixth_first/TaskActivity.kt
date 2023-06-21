@@ -1,10 +1,9 @@
-package com
+package com.example.hm_sixth_first
 
 import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.hm_sixth_first.R
 import com.example.hm_sixth_first.databinding.ActivityTaskBinding
 
 class TaskActivity : AppCompatActivity() {

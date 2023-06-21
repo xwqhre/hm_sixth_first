@@ -1,4 +1,4 @@
-package com
+package com.example.hm_sixth_first
 
 data class Model (
     val title: String,

@@ -1,4 +1,4 @@
-package com
+package com.example.hm_sixth_first
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

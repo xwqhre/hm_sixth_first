@@ -5,13 +5,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.Model
-import com.TaskActivity
-import com.TaskAdapter
-import com.ViewModel
 import com.example.hm_sixth_first.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -46,13 +43,13 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnNext.setOnClickListener {
             val intent = Intent(this, TaskActivity::class.java)
-            startActivityForResult(intent, REQUEST_CODE_ADD_TASK)
+            addTaskLauncher.launch(intent)
         }
     }
 
     private fun onLongClik(task: Model) {
         val alertDialog = AlertDialog.Builder(this)
-        alertDialog.setTitle("Вы точно хотите удалить ?")
+        alertDialog.setTitle("Вы точно хотите удалить?")
         alertDialog.setNegativeButton("Нет", object : DialogInterface.OnClickListener {
             override fun onClick(dialog: DialogInterface?, which: Int) {
                 dialog?.cancel()
@@ -67,16 +64,32 @@ class MainActivity : AppCompatActivity() {
         alertDialog.create().show()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
+    private val addTaskLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data: Intent? = result.data
             val taskTitle = data?.getStringExtra("title")
             if (!taskTitle.isNullOrEmpty()) {
                 viewModel.addTask(taskTitle)
             }
-
         }
     }
+
+    fun launchAddTaskActivity() {
+        val intent = Intent(this, TaskActivity::class.java)
+        addTaskLauncher.launch(intent)
+    }
+//
+//
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (requestCode == REQUEST_CODE_ADD_TASK && resultCode == Activity.RESULT_OK) {
+//            val taskTitle = data?.getStringExtra("title")
+//            if (!taskTitle.isNullOrEmpty()) {
+//                viewModel.addTask(taskTitle)
+//            }
+//
+//        }
+//    }
 
     companion object {
         private const val REQUEST_CODE_ADD_TASK = 1
