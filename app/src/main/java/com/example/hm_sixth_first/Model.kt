@@ -7,6 +7,5 @@ data class Model (
     fun done(){
         next = !next
     }
-
 }
 

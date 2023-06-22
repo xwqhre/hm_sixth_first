@@ -14,7 +14,7 @@ import com.example.hm_sixth_first.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var viewModel: ViewModel
+    private lateinit var viewModel:  ViewModel
     private lateinit var taskAdapter: TaskAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,9 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider(this).get(ViewModel::class.java)
-        taskAdapter = TaskAdapter(emptyList(), this::onLongClik) { position, isChecked ->
-            viewModel.markTaskAsDone(position)
-        }
+        taskAdapter = TaskAdapter(emptyList(), this::onLongClik)// { position, isChecked ->
+           // viewModel.markTaskAsDone(position) }
 
         binding.recycleView.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
